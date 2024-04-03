@@ -1,0 +1,47 @@
+@host = http://localhost:8080/
+@baseUrl = {{host}}/api/v1
+@contentType = application/json
+
+###
+GET {{host}}
+Content-Type: {{contentType}}
+
+{
+    "project": "task"
+}
+
+# ###
+# GET {{host}}/healthcheck
+# Content-Type: {{contentType}}
+
+###
+POST {{host}}
+Content-Type: {{contentType}}
+
+{
+    "project": "task"
+}
+
+# ###
+# GET {{baseUrl}}/todos
+# Content-Type: {{contentType}}
+
+# ###
+# GET {{baseUrl}}/todos/123
+# Content-Type: {{contentType}}
+
+# ###
+# PATCH  {{baseUrl}}/todos/123
+# Content-Type: {{contentType}}
+
+# ###
+# DELETE  {{baseUrl}}/todos/123
+# Content-Type: {{contentType}}
+
+###
+POST http://localhost:8080/ HTTP/1.1
+Content-Type: application/json
+
+{
+   "project": "projeto 1"
+}
