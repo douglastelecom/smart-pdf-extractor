@@ -1,18 +1,44 @@
 @host = http://localhost:8080/
 @contentType = application/json
 
-###
+### Completar um texto qualquer
 GET {{host}}completion
 Content-Type: {{contentType}}
 
 {
-    "question": "Do que fala o arquivo de id file-3iAxjWsbxZay5c82c7jWI9lF?"
+    "question": "Com quantos paus se faz uma canoa?"
 }
 
-###
+### Adicionar um arquivo
 POST {{host}}file
 Content-Type: {{contentType}}
 
-###
+{
+    "path": "src/assets/articles/corona.pdf",
+    "purpose": "assistants"
+}
+
+### Criar um assistente.
 POST {{host}}assistant
 Content-Type: {{contentType}}
+
+{
+    "name": "pdf-smart-extractor2",
+    "description": "Você será minha ferramenta para extrair informações de arquivos pdf e retorná-los em formato json.",
+    "model": "gpt-3.5-turbo",
+    "tools": [{"type": "retrieval"}]
+}
+
+### Criar uma thread com as mensagens e o file
+POST {{host}}thread
+Content-Type: {{contentType}}
+
+{
+    "assistant_id":"asst_IiXeEaY0JeX4nrfg2geaCS3j",
+    "messages": [{
+        "role": "user",
+        "content": "Por favor, extraia todos os sintomas da doença presente nesse arquivo.",
+        "file_ids": ["file-3iAxjWsbxZay5c82c7jWI9lF"]
+    }
+    ]
+}
