@@ -38,10 +38,8 @@ app.post("/thread", async (req: Request, res: Response) => {
         const messages: any = await openai.beta.threads.messages.list(
             run.thread_id
         );
-        console.log("foi")
         res.send(messages.data[0].content[0].text.value)
     } else {
-        console.log("não foi")
         res.send(run.status)
     }
 })

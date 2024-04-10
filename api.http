@@ -37,7 +37,7 @@ Content-Type: {{contentType}}
     "assistant_id":"asst_IiXeEaY0JeX4nrfg2geaCS3j",
     "messages": [{
         "role": "user",
-        "content": "Por favor, extraia todos os sintomas da doença presente nesse arquivo.",
+        "content": "Por favor, extraia todas as informações da doença em um formato json. Obedeça o seguinte formato: {nome_doenca:, sintomas:[], tratamentos[]}",
         "file_ids": ["file-3iAxjWsbxZay5c82c7jWI9lF"]
     }
     ]
