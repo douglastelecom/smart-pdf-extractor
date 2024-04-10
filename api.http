@@ -23,9 +23,9 @@ POST {{host}}assistant
 Content-Type: {{contentType}}
 
 {
-    "name": "pdf-smart-extractor2",
-    "description": "Você será minha ferramenta para extrair informações de arquivos pdf e retorná-los em formato json.",
-    "model": "gpt-3.5-turbo",
+    "name": "pdf-smart-extractor-json",
+    "description": "Você será minha ferramenta para extrair informações de arquivos pdf e retorná-los em formato json. Responda retornando apenas o JSON, nada a mais.",
+    "model": "gpt-3.5-turbo-1106",
     "tools": [{"type": "retrieval"}]
 }
 
@@ -34,10 +34,10 @@ POST {{host}}thread
 Content-Type: {{contentType}}
 
 {
-    "assistant_id":"asst_IiXeEaY0JeX4nrfg2geaCS3j",
+    "assistant_id":"asst_JwbxpTRMSV1twISwnrIaTeq2",
     "messages": [{
         "role": "user",
-        "content": "Por favor, extraia todas as informações da doença em um formato json. Obedeça o seguinte formato: {nome_doenca:, sintomas:[], tratamentos[]}",
+        "content": "Extraia todas as informações da doença em um formato Json. Responda da seguinte forma: {nome_doenca:, sintomas:[], tratamentos:[]}. Se você colocar alguma palavra além do json irá dar erro no banco de dados.",
         "file_ids": ["file-3iAxjWsbxZay5c82c7jWI9lF"]
     }
     ]
