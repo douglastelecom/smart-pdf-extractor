@@ -1,8 +1,9 @@
+import { Utils } from './utils';
 import OpenAI from "openai";
 import fs from 'fs';
 
 const openai = new OpenAI();
-
+const utils = new Utils();
 export class OpenAIService {
     async insertFile(path: string, purpose: any){
         const filegpt = await openai.files.create({ file: fs.createReadStream(path), purpose: purpose })
@@ -25,6 +26,7 @@ export class OpenAIService {
             const messages: any = await openai.beta.threads.messages.list(
                 run.thread_id
             );
+            utils.removeTrash(messages.data[0].content[0].text.value)
             return messages.data[0].content[0].text.value
         } else {
             return run.status

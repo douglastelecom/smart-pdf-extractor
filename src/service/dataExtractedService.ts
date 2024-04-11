@@ -1,6 +1,6 @@
 import prismaClient from "prisma";
 
-class DataExtractedService{
+export class DataExtractedService{
     async createDataExtracted(project: string){
       const dataExtracted = await prismaClient.dataExtracted.create({
         data:{
@@ -10,5 +10,3 @@ class DataExtractedService{
       return dataExtracted
     }
 }
-
-export {DataExtractedService}
