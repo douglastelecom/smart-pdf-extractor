@@ -1,14 +1,6 @@
 @host = http://localhost:8080/
 @contentType = application/json
 
-### Completar um texto qualquer
-GET {{host}}completion
-Content-Type: {{contentType}}
-
-{
-    "question": "Com quantos paus se faz uma canoa?"
-}
-
 ### Adicionar um arquivo
 POST {{host}}file
 Content-Type: {{contentType}}
@@ -37,7 +29,7 @@ Content-Type: {{contentType}}
     "assistant_id":"asst_VNE25P4CmqkiH0Zp942NZzzX",
     "messages": [{
         "role": "user",
-        "content": "Extraia as informações do file em um formato json da seguinte forma: 'nome_doenca':,'sintomas':[],'tratamentos':[]. Responda apenas com o json, nenhuma informação a mais.",
+        "content": "Extraia as informações em português do file em um formato json da seguinte forma: 'nome_doenca':,'sintomas':[],'tratamentos':[]. Responda apenas com o json, nenhuma informação a mais.",
         "file_ids": ["file-K7bm9k0MTU76USdUdSl8JfaN"]
     }
     ]

@@ -5,12 +5,15 @@ import { DataExtractedController } from 'controller/dataExtractedController';
 import OpenAI from 'openai';
 import fs from 'fs';
 import { empty } from '@prisma/client/runtime/library';
+import { OpenAIController } from 'controller/openAIController';
 
 const app = express();
 const server = createServer(app);
 const port = process.env.PORT;
 
 const openai = new OpenAI();
+
+const openaiController = new OpenAIController()
 
 app.use(express.json())
 
@@ -19,28 +22,15 @@ server.listen(port, () => {
 });
 
 app.post("/file", async (req: Request, res: Response) => {
-    const filegpt = await openai.files.create({ file: fs.createReadStream(req.body.path), purpose: req.body.purpose });
-    console.log(filegpt)
+   openaiController.insertFile(req, res)
 })
 
 app.post("/assistant", async (req: Request, res: Response) => {
-    const assistant = await openai.beta.assistants.create(req.body);
-    res.send(assistant)
+    openaiController.createAssistant(req, res)
 })
 
 app.post("/thread", async (req: Request, res: Response) => {
-    const run = await openai.beta.threads.createAndRunPoll({
-        assistant_id: req.body.assistant_id,
-        thread: {
-            messages: req.body.messages
-    }});
-    if (run.status === 'completed') {
-        const messages: any = await openai.beta.threads.messages.list(
-            run.thread_id
-        );
-        res.send(messages.data[0].content[0].text.value)
-    } else {
-        res.send(run.status)
-    }
+    openaiController.createAndRunThread(req, res)
 })
+
 
