@@ -33,4 +33,15 @@ app.post("/thread", async (req: Request, res: Response) => {
     openaiController.createAndRunThread(req, res)
 })
 
+app.get("/completion", async (req: Request, res: Response) => {
+    // const completion = await openai.chat.completions.create({
+    //     messages: [{ role: "system", content: "Você será meu assistente" },
+    //     { role: "user", content: req.body.question }],
+    //     model: "gpt-3.5-turbo",
+    // });
+    // res.send(completion.choices[0].message.content);
+    await openaiController.sendComplete(req, res);
+    res.send().status(200)
+})
+
 

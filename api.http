@@ -1,6 +1,15 @@
 @host = http://localhost:8080/
 @contentType = application/json
 
+###
+GET {{host}}completion
+Content-Type: {{contentType}}
+
+{
+    "json": "'titulo_artigo':, 'autores':[], 'universidade':, 'ano':, 'doencas':[ {'nome_doenca':,'sintomas':[],'tratamentos':[]}]",
+    "model": "gpt-4-turbo-preview"
+}
+
 ### Adicionar um arquivo
 POST {{host}}file
 Content-Type: {{contentType}}

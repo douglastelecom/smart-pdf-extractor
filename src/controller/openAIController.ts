@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { OpenAIService } from 'service/openAIService';
+import fs from 'fs';
+import PdfParse from 'pdf-parse';
 
 export class OpenAIController {
     openAIService = new OpenAIService()
@@ -17,5 +19,15 @@ export class OpenAIController {
     async createAndRunThread(req: Request, res: Response){
         const threadgpt = await this.openAIService.createAndRunThread(req.body)
         res.send(threadgpt)
+    }
+
+    async sendComplete(req: Request, res: Response){
+        const file = fs.readFileSync("src/assets/articles/corona.pdf")
+        // PdfParse(file).then(function(data) {
+        //     console.log(data.text)
+        // })
+        const pdfParse = (await PdfParse(file)).text
+        res.send( await this.openAIService.sendCompletion(req.body.json , pdfParse, req.body.model ));
+        // const responseComplete = awaot this.openAIService.sendCompletion()
     }
 }
