@@ -6,8 +6,7 @@ const openai = new OpenAI();
 export class OpenAIService {
 
     async completion(reqBody: any, article: any){
-        const client = new MongoClient(reqBody.openaiKey)
-       // const pdfParse = (await PdfParse(file)).text
+        const client = new MongoClient(reqBody.mongoUrl)
         const collection = client.db(reqBody.db).collection(reqBody.collection)
         openai.apiKey = reqBody.openaiKey
         const responseCompletion = await openai.chat.completions.create({
@@ -16,7 +15,9 @@ export class OpenAIService {
             model: reqBody.model,
             response_format: {type: "json_object"}
         });
-        return await collection.insertOne(JSON.parse(responseCompletion.choices[0].message.content!))
+        const completionResp = await collection.insertOne(JSON.parse(responseCompletion.choices[0].message.content!))
+        console.log(completionResp)
+        return completionResp
     }
 
 }
