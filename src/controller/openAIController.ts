@@ -5,8 +5,9 @@ import PdfParse from 'pdf-parse';
 
 export class OpenAIController {
     openAIService = new OpenAIService()
-
     async completion(req: Request, res: Response){
-        console.log(req.body)
+        const pdf = (await PdfParse(req.file!.buffer))
+        console.log(JSON.parse(req.body.json))
+        console.log(pdf.text)
     }
 }

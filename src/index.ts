@@ -6,6 +6,8 @@ import OpenAI from 'openai';
 import fs from 'fs';
 import { empty } from '@prisma/client/runtime/library';
 import { OpenAIController } from 'controller/openAIController';
+import multer from 'multer';
+
 
 const app = express();
 app.use(function (req, res, next) {
@@ -17,9 +19,8 @@ app.use(function (req, res, next) {
 
 const server = createServer(app);
 const port = process.env.PORT;
-
 const openai = new OpenAI();
-
+const upload = multer();
 const openaiController = new OpenAIController()
 
 app.use(express.json())
@@ -28,9 +29,8 @@ server.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 });
 
-app.post("/completion", async (req: Request, res: Response) => {
+app.post("/completion", upload.single('file'), async (req: Request, res: Response) => {
     await openaiController.completion(req, res);
-    console.log(req.body.model)
     res.send().status(200)
 })
 
