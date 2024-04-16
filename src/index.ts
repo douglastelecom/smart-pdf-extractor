@@ -31,7 +31,6 @@ server.listen(port, () => {
 
 app.post("/completion", upload.single('file'), async (req: Request, res: Response) => {
     await openaiController.completion(req, res);
-    res.send().status(200)
 })
 
 

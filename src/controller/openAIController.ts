@@ -9,8 +9,9 @@ export class OpenAIController {
     async completion(req: Request, res: Response){
         const pdf = (await PdfParse(req.file!.buffer))
         const reqCompletion = JSON.parse(req.body.json)
-        console.log(reqCompletion.mongoUrl)
         const completionResp = await this.openAIService.completion(reqCompletion,pdf.text)
+        console.log("Id: " + completionResp.insertedId)
+        console.log("acknowledged: " + completionResp.acknowledged)
         res.send(completionResp).status(200)
     }
 

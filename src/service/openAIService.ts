@@ -16,7 +16,6 @@ export class OpenAIService {
             response_format: {type: "json_object"}
         });
         const completionResp = await collection.insertOne(JSON.parse(responseCompletion.choices[0].message.content!))
-        console.log(completionResp)
         return completionResp
     }
 
