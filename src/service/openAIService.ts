@@ -1,15 +1,15 @@
 import OpenAI from "openai";
 import { MongoClient } from 'mongodb';
 
-const openai = new OpenAI();
+
 
 export class OpenAIService {
 
     async completion(reqBody: any, article: any){
         try{
+            const openai = new OpenAI({apiKey: reqBody.openaiKey});
             const client = new MongoClient(reqBody.mongoUrl)
             const collection = client.db(reqBody.db).collection(reqBody.collection)
-            openai.apiKey = reqBody.openaiKey
             const responseCompletion = await openai.chat.completions.create({
                 messages: [{ role: "system", content: "Você será minha ferramenta para extração de dados." },
                 { role: "user", content: "Extraia as informações em português do artigo abaixo respondendo com um json no formato: " + reqBody.json + "/n " + article}],
@@ -37,6 +37,7 @@ export class OpenAIService {
 
     async testOpenaiKey(reqBody: any){
         try{
+            const openai = new OpenAI({apiKey: reqBody.openaiKey});
             console.log(reqBody)
             openai.apiKey = reqBody.openaiKey
             const responseCompletion = await openai.chat.completions.create({
@@ -50,7 +51,5 @@ export class OpenAIService {
             console.log("Erro no openai")
             throw new Error("Falha de conecção com a API GPT.")
         }
-
     }
-
 }

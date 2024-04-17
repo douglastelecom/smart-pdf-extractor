@@ -1,10 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { createServer } from 'http';
-import "dotenv/config";
-import { DataExtractedController } from 'controller/dataExtractedController';
-import OpenAI from 'openai';
-import fs from 'fs';
-import { empty } from '@prisma/client/runtime/library';
 import { OpenAIController } from 'controller/openAIController';
 import multer from 'multer';
 
@@ -18,8 +13,7 @@ app.use(function (req, res, next) {
 });
 
 const server = createServer(app);
-const port = process.env.PORT;
-const openai = new OpenAI();
+const port = 8080;
 const upload = multer();
 const openaiController = new OpenAIController()
 
