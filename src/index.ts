@@ -33,4 +33,9 @@ app.post("/completion", upload.single('file'), async (req: Request, res: Respons
     await openaiController.completion(req, res);
 })
 
+app.post("/test", async (req: Request, res: Response) => {
+    console.log(req.body)
+    await openaiController.testApi(req, res)
+})
+
 
