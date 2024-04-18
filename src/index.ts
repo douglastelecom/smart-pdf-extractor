@@ -24,12 +24,10 @@ server.listen(port, () => {
 });
 
 app.post("/completion", upload.single('file'), async (req: Request, res: Response) => {
-    console.log("Método post /completion chamado")
     await extraAIController.extractJsonFromPdf(req, res);
 })
 
 app.post("/test", async (req: Request, res: Response) => {
-    console.log("Método post /test chamado")
     await extraAIController.testConnections(req, res)
 })
 

@@ -8,13 +8,9 @@ export class MongodbService {
 
     async testConnection(mongoUrl: string) {
         try {
-            console.log(mongoUrl)
             const client = new MongoClient(mongoUrl)
             await client.connect()
-            console.log("Sucesso no mongo")
         } catch (error: any) {
-            console.log("Erro no mongo")
-            console.log(error.message)
             throw new Error("Falha de conecção com o MongoDB Atlas.")
         }
     }
@@ -26,6 +22,7 @@ export class MongodbService {
             const completionResp = await collection.insertOne(json)
             return completionResp
         } catch(error: any){
+            console.log(error.message)
             throw error
         }
 

@@ -14,7 +14,7 @@ export class OpenAIService {
             const response = JSON.parse(responseCompletion.choices[0].message.content!)
             return response
         }catch(error: any){
-            console.log(error)
+            console.log(error.message)
             throw error
         }
     }
@@ -26,7 +26,6 @@ export class OpenAIService {
     async testConnection(reqBody: any){
         try{
             const openai = new OpenAI({apiKey: reqBody.openaiKey});
-            console.log(reqBody)
             openai.apiKey = reqBody.openaiKey
             const responseCompletion = await openai.chat.completions.create({
                 messages: [{ role: "system", content: "Isso é um teste." },
@@ -34,11 +33,9 @@ export class OpenAIService {
                 model: reqBody.model,
                 response_format: {type: "json_object"}
             });
-            console.log("Sucesso no openai")
         } catch(error: any){
-            console.log("Erro no openai")
             console.log(error.message)
-            throw new Error("Falha de conecção com a API GPT.")
+            throw error
         }
     }
 }

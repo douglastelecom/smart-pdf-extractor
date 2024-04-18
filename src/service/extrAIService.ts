@@ -9,11 +9,11 @@ export class ExtrAIService {
     async extractJsonFromPdfAndSave(reqBody: any, pdfBuffer: any) {
         try {
             const pdf = await PdfParse(pdfBuffer)
-            const json = await this.openaiService.completion(reqBody, pdf)
+            console.log(pdf.text)
+            const json = await this.openaiService.completion(reqBody, pdf.text)
             const mongoReturn = await this.mongodbService.saveJson(reqBody, json)
-            console.log(mongoReturn)
         } catch (error: any) {
-            console.log(error)
+            console.log(error.message)
             throw error
         }
     }
