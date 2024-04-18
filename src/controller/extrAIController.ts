@@ -16,6 +16,7 @@ export class ExtrAIController {
             res.status(200).send()
         } catch (error: any) {
             console.log(error.message)
+            console.log("erro na extração")
             res.status(500).send(error)
         }
     }
@@ -27,7 +28,7 @@ export class ExtrAIController {
             await this.mongodbService.testConnection(reqBody.mongoUrl)
             res.status(200).send()
         } catch (error: any) {
-            console.log(error.message)
+            console.log(error)
             res.status(500).send(error)
         }
     }

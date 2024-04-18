@@ -6,16 +6,11 @@ export class ExtrAIService {
 
     openaiService = new OpenAIService()
     mongodbService = new MongodbService()
+
     async extractJsonFromPdfAndSave(reqBody: any, pdfBuffer: any) {
-        try {
-            const pdf = await PdfParse(pdfBuffer)
-            console.log(pdf.text)
-            const json = await this.openaiService.completion(reqBody, pdf.text)
-            const mongoReturn = await this.mongodbService.saveJson(reqBody, json)
-        } catch (error: any) {
-            console.log(error.message)
-            throw error
-        }
+        const pdf = await PdfParse(pdfBuffer)
+        const json = await this.openaiService.completion(reqBody, pdf.text)
+        const mongoReturn = await this.mongodbService.saveJson(reqBody, json)
     }
 
     extractValuesFromErrorMessage(errorMessage: any) {
