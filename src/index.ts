@@ -1,6 +1,6 @@
+import { ExtrAIController } from 'controller/extrAIController';
 import express, { Request, Response, NextFunction } from 'express';
 import { createServer } from 'http';
-import { OpenAIController } from 'controller/openAIController';
 import multer from 'multer';
 
 
@@ -15,7 +15,7 @@ app.use(function (req, res, next) {
 const server = createServer(app);
 const port = 8080;
 const upload = multer();
-const openaiController = new OpenAIController()
+const extraAIController = new ExtrAIController()
 
 app.use(express.json())
 
@@ -24,12 +24,13 @@ server.listen(port, () => {
 });
 
 app.post("/completion", upload.single('file'), async (req: Request, res: Response) => {
-    await openaiController.completion(req, res);
+    console.log("Método post /completion chamado")
+    await extraAIController.extractJsonFromPdf(req, res);
 })
 
 app.post("/test", async (req: Request, res: Response) => {
-    console.log(req.body)
-    await openaiController.testApi(req, res)
+    console.log("Método post /test chamado")
+    await extraAIController.testConnections(req, res)
 })
 
 
